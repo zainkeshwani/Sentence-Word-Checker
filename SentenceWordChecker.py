@@ -44,8 +44,8 @@ def check_sentence(sentence):
   ready = sentence.strip()
   correct_words = []
 
-  if " " in ready:
-    # If sentence then
+  if " " in ready:   # If sentence then
+
     print("\n\nSentence detected. Commencing grammar check...")
     nopunc = ready.translate(str.maketrans('', '', string.punctuation))
     sent_words = ([i for i in nopunc.split()])
@@ -54,47 +54,29 @@ def check_sentence(sentence):
       if check_word(word):
         correct_words.append(word)
       else:
-        t.cprint(f"\nPossibly misspelled word: {word}",
-                 "yellow",
-                 attrs=["bold"])
+        t.cprint(f"\nPossibly misspelled word: {word}", "yellow", attrs=["bold"])
         synonyms, antonyms = get_synonyms_antonyms(word)
         if synonyms:
-          t.cprint(f"Synonyms for {word}: {', '.join(synonyms)}",
-                   "blue",
-                   attrs=["bold"])
+          t.cprint(f"Synonyms for {word}: {', '.join(synonyms)}", "blue", attrs=["bold"])
         if antonyms:
-          t.cprint(f"Antonyms for {word}: {', '.join(antonyms)}",
-                   "magenta",
-                   attrs=["bold"])
+          t.cprint(f"Antonyms for {word}: {', '.join(antonyms)}", "magenta", attrs=["bold"])
 
     if ready.endswith("."):
-      t.cprint("\nSentence punctuation correct, period detected.",
-               "green",
-               attrs=['bold'])
+      t.cprint("\nSentence punctuation correct, period detected.", "green", attrs=['bold'])
     elif ready.endswith("?"):
-      t.cprint("\nSentence punctuation correct, question mark detected.",
-               "green",
-               attrs=['bold'])
+      t.cprint("\nSentence punctuation correct, question mark detected.", "green", attrs=['bold'])
     elif ready.endswith("!"):
-      t.cprint("\nSentence punctuation correct, exclamation point detected.",
-               "green",
-               attrs=['bold'])
+      t.cprint("\nSentence punctuation correct, exclamation point detected.", "green", attrs=['bold'])
     else:
       t.cprint(
-          "\nPunctuation not detected, check your punctuation at the end of your sentence.",
-          "red",
-          attrs=['bold'])
+          "\nPunctuation not detected, check your punctuation at the end of your sentence.", "red", attrs=['bold'])
 
     if ready[0].isupper():
       t.cprint(
-          "\nFirst letter of sentence capitalized, capitalization correct.",
-          "green",
-          attrs=['bold'])
+          "\nFirst letter of sentence capitalized, capitalization correct.", "green", attrs=['bold'])
     else:
       t.cprint(
-          "\nNo capitalization detected at the beginning of the sentence, check your capitalization.",
-          "red",
-          attrs=["bold"])
+          "\nNo capitalization detected at the beginning of the sentence, check your capitalization.", "red", attrs=["bold"])
 
     if len(correct_words) == len(sent_words):
       t.cprint("\nAll words are spelled correctly.", "green", attrs=["bold"])
@@ -102,18 +84,12 @@ def check_sentence(sentence):
   else:
     print("\n\nWord detected. Commencing dictionary check...")
     if check_word(ready):
-      t.cprint(f"\nYour word, \"{ready}\", is in the English Dictionary!",
-               "green",
-               attrs=["bold"])
+      t.cprint(f"\nYour word, \"{ready}\", is in the English Dictionary!", "green", attrs=["bold"])
       synonyms, antonyms = get_synonyms_antonyms(ready)
       if synonyms:
-        t.cprint(f"\nSynonyms for {ready}: {', '.join(synonyms)}",
-                 "blue",
-                 attrs=["bold"])
+        t.cprint(f"\nSynonyms for {ready}: {', '.join(synonyms)}", "blue", attrs=["bold"])
       if antonyms:
-        t.cprint(f"Antonyms for {ready}: {', '.join(antonyms)}",
-                 "magenta",
-                 attrs=["bold"])
+        t.cprint(f"Antonyms for {ready}: {', '.join(antonyms)}", "magenta", attrs=["bold"])
     else:
       t.cprint(
           f"\nYour word, \"{ready}\", is not in the dictionary. Try checking your spelling.",
@@ -123,16 +99,14 @@ def check_sentence(sentence):
 
 def main():
   print(
-      "Welcome to SpellCheck, by Zain Keshwani! With this spell checker, you can either insert a sentence to check its grammar, capitalization, or punctuation, or you can insert a word to check if it is in the English Dictionary and get some synonyms and antonyms for the word as well (if there are any on the free API being used).\n\n"
-  )
+      "Welcome to SpellCheck, by Zain Keshwani! With this spell checker, you can either insert a sentence to check its grammar, capitalization, or punctuation, or you can insert a word to check if it is in the English Dictionary and get some synonyms and antonyms for the word as well (if there are any on the free API being used).\n\n")
   while True:
     text = input("\n\nEnter your word/sentence (or 'q' to quit): ")
     if text.lower() == 'q':
       print("Thank you for using SpellCheck, by Zain Keshwani!")
       break
     check_sentence(text)
-    print("\nA corrected version of your text may look something like this: " +
-          str(correct_spelling(text)))
+    print("\nA corrected version of your text may look something like this: " + str(correct_spelling(text)))
 
 
 main()
